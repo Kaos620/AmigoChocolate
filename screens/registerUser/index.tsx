@@ -5,23 +5,39 @@ import { Text, View, StyleSheet, TouchableOpacity, TextInput } from "react-nativ
 import { StatusBar } from "expo-status-bar";
 import { useForm, Controller } from "react-hook-form";
 
-const Login = () => {
+const Register = () => {
     const navigation = useNavigation<StackTypes>();
-    const { control, handleSubmit, formState: { errors } } = useForm();
+    const { control, handleSubmit, formState: { errors, isSubmitting }, watch } = useForm();
 
-    const handleLogin = handleSubmit((data) => {
-        if (Object.keys(errors).length === 0) {
-            navigation.navigate('Home');
+    const password = React.useRef({});
+    password.current = watch("password", "");
+
+    const handleRegister = handleSubmit((data) => {
+        if (Object.keys(errors).length === 0 ) {
+            navigation.navigate('Login');
         }
     });
 
-    const handleGoRegister = handleSubmit((data) => {
-        navigation.navigate('Register');
-    });
-
     return (
+        
         <View style={styles.container}>
-            <Text style={styles.title}>Login</Text>
+            <Text style={styles.title}>Register</Text>
+            <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Nome Completo"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                    />
+                )}
+                name="name"
+                rules={{ required: 'Nome Completo obrigatório', }}
+            />
+            {errors.name && <Text style = {styles.error} >{errors.name.message}</Text>}
+
             <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
@@ -51,23 +67,36 @@ const Login = () => {
                     />
                 )}
                 name="password"
-                rules={{ required: 'Senha obrigatória' }}
+                rules={{ required: true }}
             />
             {errors.password && <Text style = {styles.error} >{errors.password.message}</Text>}
-            
-            <TouchableOpacity onPress={handleLogin} style={styles.button}>
-                <Text style={styles.buttonText}>Entrar</Text>
-            </TouchableOpacity>
 
-            <TouchableOpacity onPress={handleGoRegister}>
+            <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Confirmar Senha"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                        secureTextEntry
+                    />
+                )}
+                name="passwordConfirmation"
+                rules={{ required: 'Senha obrigatória' ,
+                validate: value => value === password.current || "As senhas não coincidem"}}
+            />
+            {errors.passwordConfirmation && <Text style = {styles.error} >{errors.passwordConfirmation.message}</Text>}
+
+            <TouchableOpacity onPress={handleRegister} style={styles.button}>
                 <Text style={styles.buttonText}>Registrar</Text>
             </TouchableOpacity>
-
             <StatusBar style="auto" />
         </View>
     );
 };
-export default Login;
+export default Register;
 
 const styles = StyleSheet.create({
     container: {
@@ -101,12 +130,11 @@ const styles = StyleSheet.create({
         width: '15%',
         borderRadius: 5,
         height: 30,
-        backgroundColor: 'blue',
+        backgroundColor: 'blue'
     },
 
     buttonText: {
         color: 'white',
-        padding: 8
     },
 
     error: {
