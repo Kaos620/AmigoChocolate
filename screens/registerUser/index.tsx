@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { StackTypes } from "../../routes/stack";
-import { Text, View, StyleSheet, TouchableOpacity, TextInput } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useForm, Controller } from "react-hook-form";
 
@@ -20,8 +20,8 @@ const Register = () => {
 
     return (
         
-        <View style={styles.container}>
-            <Text style={styles.title}>Register</Text>
+        <ImageBackground source={require('../../assets/background.jpg')} style={styles.container}>
+            <Text style={styles.title}>ChocoAmigo Registrar</Text>
             <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
@@ -36,7 +36,7 @@ const Register = () => {
                 name="name"
                 rules={{ required: 'Nome Completo obrigatório', }}
             />
-            {errors.name && <Text style = {styles.error} >{errors.name.message}</Text>}
+            {errors.name && <Text style={styles.error}>{errors.name.message}</Text>}
 
             <Controller
                 control={control}
@@ -52,7 +52,7 @@ const Register = () => {
                 name="email"
                 rules={{ required: 'Email obrigatório', }}
             />
-            {errors.email && <Text style = {styles.error} >{errors.email.message}</Text>}
+            {errors.email && <Text style={styles.error}>{errors.email.message}</Text>}
 
             <Controller
                 control={control}
@@ -67,9 +67,9 @@ const Register = () => {
                     />
                 )}
                 name="password"
-                rules={{ required: true }}
+                rules={{ required: 'Senha obrigatória' }}
             />
-            {errors.password && <Text style = {styles.error} >{errors.password.message}</Text>}
+            {errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
 
             <Controller
                 control={control}
@@ -84,16 +84,16 @@ const Register = () => {
                     />
                 )}
                 name="passwordConfirmation"
-                rules={{ required: 'Senha obrigatória' ,
-                validate: value => value === password.current || "As senhas não coincidem"}}
+                rules={{ required: 'Confirmação de Senha obrigatória',
+                         validate: value => value === password.current || "As senhas não coincidem"}}
             />
-            {errors.passwordConfirmation && <Text style = {styles.error} >{errors.passwordConfirmation.message}</Text>}
+            {errors.passwordConfirmation && <Text style={styles.error}>{errors.passwordConfirmation.message}</Text>}
 
             <TouchableOpacity onPress={handleRegister} style={styles.button}>
                 <Text style={styles.buttonText}>Registrar</Text>
             </TouchableOpacity>
             <StatusBar style="auto" />
-        </View>
+        </ImageBackground>
     );
 };
 export default Register;
@@ -104,40 +104,46 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-
     },
 
     title: {
-        fontSize: 20,
+        fontSize: 30,
         marginBottom: 20,
-        color: 'yellow',
+        color: 'white',
+        fontWeight: 'bold',
     },
 
     textInput: {
-        width: '20%',
-        height: 30,
-        padding: 15,
+        width: '70%',
+        height: 40,
+        padding: 10,
         borderWidth: 1,
-        borderRadius: 3,
-        margin: 5,
-        borderColor: 'grey',
-        backgroundColor: 'white'
+        borderRadius: 5,
+        marginVertical: 5,
+        borderColor: 'brown',
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
     },
 
     button: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: '15%',
+        width: '40%',
         borderRadius: 5,
-        height: 30,
-        backgroundColor: 'blue'
+        height: 40,
+        backgroundColor: 'brown',
+        marginVertical: 10,
     },
 
     buttonText: {
         color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
     },
 
     error: {
-        color: 'red'
-    }
+        color: 'red',
+        alignSelf: 'flex-start',
+        marginLeft: '15%',
+        marginBottom: 5,
+    },
 });
