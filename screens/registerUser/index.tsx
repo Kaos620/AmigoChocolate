@@ -34,7 +34,7 @@ const Register = () => {
                     />
                 )}
                 name="name"
-                rules={{ required: 'Nome Completo obrigatório', }}
+                rules={{ required: 'Nome Completo Obrigatório ', }}
             />
             {errors.name && <Text style={styles.error}>{errors.name.message}</Text>}
 
@@ -50,7 +50,7 @@ const Register = () => {
                     />
                 )}
                 name="email"
-                rules={{ required: 'Email obrigatório', }}
+                rules={{ required: 'Email Obrigatório ', }}
             />
             {errors.email && <Text style={styles.error}>{errors.email.message}</Text>}
 
@@ -67,7 +67,7 @@ const Register = () => {
                     />
                 )}
                 name="password"
-                rules={{ required: 'Senha obrigatória' }}
+                rules={{ required: 'Senha Obrigatória ' }}
             />
             {errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
 
@@ -84,8 +84,8 @@ const Register = () => {
                     />
                 )}
                 name="passwordConfirmation"
-                rules={{ required: 'Confirmação de Senha obrigatória',
-                         validate: value => value === password.current || "As senhas não coincidem"}}
+                rules={{ required: 'Confirmação de Senha Obrigatória',
+                         validate: value => value === password.current || "As senhas não coincidem "}}
             />
             {errors.passwordConfirmation && <Text style={styles.error}>{errors.passwordConfirmation.message}</Text>}
 

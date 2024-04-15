@@ -11,8 +11,10 @@ const RecoverPassword = () => {
     const { control, handleSubmit, formState: { errors } } = useForm();
     const [modalVisible, setModalVisible] = useState(false);
     const [emailEntered, setEmailEntered] = useState(false);
+    const [email, setEmail] = useState<string>('');
 
-    const handleRecoverPassword = handleSubmit((data) => {
+    const handleRecoverPassword = (() => {
+        
         if (emailEntered && Object.keys(errors).length === 0) {
             navigation.navigate('Login')
         }
@@ -27,42 +29,52 @@ const RecoverPassword = () => {
                     <TextInput
                         style={styles.textInput}
                         placeholder="Email"
-                        onBlur={() => {
-                            onBlur();
-                            setEmailEntered(!!value);
-                        }}
-                        onChangeText={onChange}
+                        onChangeText={(txtEmail) =>{ 
+                            setEmail(txtEmail);
+                            setEmailEntered(true);
+                        }
+                    }
                         value={value}
                     />
                 )}
                 name="email"
-                rules={{ required: 'Email obrigatório', }}
+                rules={{ required: 'Email Obrigatório ', }}
             />
             {errors.email && <Text style={styles.error}>{errors.email.message}</Text>}
 
             <TouchableOpacity onPress={() => {
-                setEmailEntered(true);
-                setModalVisible(true);
+                 if (emailEntered && Object.keys(errors).length === 0) {
+                    setModalVisible(true);
+                }      
             }} style={styles.button}>
-                <Text style={styles.buttonText}>Recuperar Senha</Text>
+                <Text style={styles.buttonText}>Recuperar Senha.</Text>
             </TouchableOpacity>
-
+            
+            
+            {
+            modalVisible ? 
+            
             <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => setModalVisible(!modalVisible)}
-            >
-                <View style={styles.centeredView}>
-                    <View style={styles.modalView}>
-                        <Text style={styles.modalText}>Email de Recuperação Enviado</Text>
-                        <TouchableOpacity onPress={handleRecoverPassword} style={styles.buttonModal}>
-                            <Text style={styles.buttonText}>Retornar à Página de Login</Text>
-                        </TouchableOpacity>
+                    animationType="slide"
+                    transparent={true}
+                    visible={modalVisible}
+                    onRequestClose={() => setModalVisible(!modalVisible)}
+                >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <Text style={styles.modalText}>Email de Recuperação Enviado</Text>
+                            <TouchableOpacity onPress={handleRecoverPassword} style={styles.buttonModal}>
+                                <Text style={styles.buttonText}>Retornar à Página de Login</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-            </Modal>
-
+                </Modal> 
+            
+            : 
+            
+            <></>
+            
+            }
             <StatusBar style="auto" />
         </ImageBackground>
     );

@@ -21,10 +21,10 @@ export default function StackComponent() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name = "Login" component= {Login}/>
-                <Stack.Screen name = "Register" component={Register}/>
-                <Stack.Screen name = "Home" component = {Home} />
-                <Stack.Screen name = "RecoverPassword" component={RecoverPassword}/>
+                <Stack.Screen name = "Login" component= {Login} options={{headerShown: false }}/>
+                <Stack.Screen name = "Register" component={Register} options={{headerShown: false }}/>
+                <Stack.Screen name = "Home" component = {Home}  options={{headerShown: false }}/>
+                <Stack.Screen name = "RecoverPassword" component={RecoverPassword} options={{headerShown: false }}/>
             </Stack.Navigator>
         </NavigationContainer>
     )
