@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigation } from "@react-navigation/native";
-import { StackTypes } from "../../routes/stack";
+import { StackTypes } from "..//../routes/stack";
 import { Text, View, StyleSheet, TouchableOpacity, TextInput, Modal, ImageBackground } from "react-native";
 import { useState } from 'react';
 import { StatusBar } from "expo-status-bar";
@@ -21,7 +21,7 @@ const RecoverPassword = () => {
     });
 
     return (
-        <ImageBackground source={require('../../assets/background.jpg')} style={styles.container}>
+        <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
             <Text style={styles.title}>Digite o seu Email</Text>
             <Controller
                 control={control}
