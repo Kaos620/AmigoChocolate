@@ -15,26 +15,28 @@ const Login = () => {
 
     const userService = new UserService();
 
-    const handleLogin = async () => {
-        if (Object.keys(errors).length === 0){
-            
-            if (!email) {
-              setUsernameError(true);
+    const handleLogin = handleSubmit(async () => {
+        //const userId = 1;
+    //    if (Object.keys(errors).length === 0 ) {
+            if (!email || !password) {
+                setUsernameError(true);
             } else {
                 setUsernameError(false);
+                navigation.navigate('Home');
             }
-      
-        }
-        const isValid = await userService.validateUser(email, password);
-        if (Object.keys(errors).length === 0 && isValid) {
-          setEmail('');
-          setPassword('');
-          navigation.navigate('Home');
-        } else {
-          alert('Usuário e/ou senha inválidos');
-          return false;
-        }
-    }
+            
+            
+            
+            const isValid = await userService.validateUser(email, password);
+            if (isValid) {
+                setEmail('');
+                setPassword('');
+                navigation.navigate('Home');
+            } else {
+                alert('Usuário e/ou senha inválidos');
+            }
+        //}
+    });
 
     const handleGoRegister = (() => {
         navigation.navigate('Register');
@@ -49,13 +51,13 @@ const Login = () => {
             <Text style={styles.title}>ChocoAmigo Login</Text>
             <Controller
                 control={control}
-                render={({ field: { onChange, onBlur } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
                         style={styles.textInput}
                         placeholder="Email"
                         onBlur={onBlur}
-                        onChangeText={setEmail}
-                        value={email as string}
+                        onChangeText={onChange}
+                        value={value}
                     />
                 )}
                 name="email"
@@ -65,13 +67,13 @@ const Login = () => {
 
             <Controller
                 control={control}
-                render={({ field: { onChange, onBlur } }) => (
+                render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
                         style={styles.textInput}
                         placeholder="Senha"
                         onBlur={onBlur}
-                        onChangeText={setPassword}
-                        value={password as string}
+                        onChangeText={onChange}
+                        value={value}
                         secureTextEntry
                     />
                 )}

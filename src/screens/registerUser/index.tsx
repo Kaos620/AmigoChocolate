@@ -1,48 +1,84 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { StackTypes } from "../../routes/stack";
-import { Text, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground } from "react-native";
+import { Text, View, TouchableOpacity, TextInput, ImageBackground, Image, Button } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useForm, Controller } from "react-hook-form";
+import * as ImagePicker from 'expo-image-picker';
+import { UserService } from '../../service/UserService/userService';
+import {User} from '../../types/types'
+import { stylesRegister } from './styles';
 
 const Register = () => {
     const navigation = useNavigation<StackTypes>();
     const { control, handleSubmit, formState: { errors, isSubmitting }, watch } = useForm();
-
+    
     const password = React.useRef({});
     password.current = watch("password", "");
 
-    const handleRegister = handleSubmit((data) => {
-        if (Object.keys(errors).length === 0 ) {
-            navigation.navigate('Login');
+    const [image, setImage] = useState('');
+    const pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        console.log(result);
+
+        if (!result.canceled) {
+            setImage(result.assets[0].uri);
+        }
+    }
+
+    
+    const handleRegister = handleSubmit(async (data) => {
+        try {
+            if (Object.keys(errors).length === 0 ) {
+                const user: User = {
+                    photo: data.photo,
+                    fullName: data.fullName,
+                    email: data.email,
+                    password: data.password, // Defina a senha como necessário
+                };
+                navigation.navigate('Login');
+            }
+
+        } catch (error){
+            console.error('Erro ao registrar', error);
         }
     });
 
     return (
         
-        <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
-            <Text style={styles.title}>ChocoAmigo Registrar</Text>
+        <ImageBackground source={require('../../../assets/background.jpg')} style={stylesRegister.container}>
+            <Text style={stylesRegister.title}>ChocoAmigo Registrar</Text>
+            
+            <Button title="Pick an image from camera roll" onPress={pickImage} />
+            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+
             <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                        style={styles.textInput}
+                        style={stylesRegister.textInput}
                         placeholder="Nome Completo"
                         onBlur={onBlur}
                         onChangeText={onChange}
                         value={value}
                     />
                 )}
-                name="name"
+                name="fullName"
                 rules={{ required: 'Nome Completo Obrigatório ', }}
             />
-            {errors.name && <Text style={styles.error}>{errors.name.message}</Text>}
+            {errors.fullName && <Text style={stylesRegister.error}>{errors.fullName.message}</Text>}
 
             <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                        style={styles.textInput}
+                        style={stylesRegister.textInput}
                         placeholder="Email"
                         onBlur={onBlur}
                         onChangeText={onChange}
@@ -52,13 +88,13 @@ const Register = () => {
                 name="email"
                 rules={{ required: 'Email Obrigatório ', }}
             />
-            {errors.email && <Text style={styles.error}>{errors.email.message}</Text>}
+            {errors.email && <Text style={stylesRegister.error}>{errors.email.message}</Text>}
 
             <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                        style={styles.textInput}
+                        style={stylesRegister.textInput}
                         placeholder="Senha"
                         onBlur={onBlur}
                         onChangeText={onChange}
@@ -69,13 +105,13 @@ const Register = () => {
                 name="password"
                 rules={{ required: 'Senha Obrigatória ' }}
             />
-            {errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
+            {errors.password && <Text style={stylesRegister.error}>{errors.password.message}</Text>}
 
             <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <TextInput
-                        style={styles.textInput}
+                        style={stylesRegister.textInput}
                         placeholder="Confirmar Senha"
                         onBlur={onBlur}
                         onChangeText={onChange}
@@ -85,12 +121,12 @@ const Register = () => {
                 )}
                 name="passwordConfirmation"
                 rules={{ required: 'Confirmação de Senha Obrigatória',
-                         validate: value => value === password.current || "As senhas não coincidem "}}
+            validate: value => value === password.current || "As senhas não coincidem "}}
             />
-            {errors.passwordConfirmation && <Text style={styles.error}>{errors.passwordConfirmation.message}</Text>}
+            {errors.passwordConfirmation && <Text style={stylesRegister.error}>{errors.passwordConfirmation.message}</Text>}
 
-            <TouchableOpacity onPress={handleRegister} style={styles.button}>
-                <Text style={styles.buttonText}>Registrar</Text>
+            <TouchableOpacity onPress={handleRegister} style={stylesRegister.button}>
+                <Text style={stylesRegister.buttonText}>Registrar</Text>
             </TouchableOpacity>
             <StatusBar style="auto" />
         </ImageBackground>
@@ -98,52 +134,4 @@ const Register = () => {
 };
 export default Register;
 
-const styles = StyleSheet.create({
-    container: {
-        backgroundColor: 'black',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
 
-    title: {
-        fontSize: 30,
-        marginBottom: 20,
-        color: 'white',
-        fontWeight: 'bold',
-    },
-
-    textInput: {
-        width: '70%',
-        height: 40,
-        padding: 10,
-        borderWidth: 1,
-        borderRadius: 5,
-        marginVertical: 5,
-        borderColor: 'brown',
-        backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    },
-
-    button: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '40%',
-        borderRadius: 5,
-        height: 40,
-        backgroundColor: 'brown',
-        marginVertical: 10,
-    },
-
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-
-    error: {
-        color: 'red',
-        alignSelf: 'flex-start',
-        marginLeft: '15%',
-        marginBottom: 5,
-    },
-});
