@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { StackTypes } from "../../routes/stack";
-import { Text, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground, Pressable, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import axios, {AxiosResponse} from "axios";
 import { useForm, Controller } from "react-hook-form";
+import * as ImagePicker from 'expo-image-picker';
 import { IUser } from '../../types/types';
 
 const Register = () => {
     const navigation = useNavigation<StackTypes>();
-    const [newImage, setNewImage] = useState('');    
+    const [image, setImage] = useState('');    
     const { control, handleSubmit, formState: { errors, isSubmitting }, watch } = useForm<IUser>({
         defaultValues: {
             photo: '',
@@ -20,12 +21,28 @@ const Register = () => {
         }
 });
 
+
+const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.canceled) {
+        setImage(result.assets[0].uri);
+    }
+}
+
     const password = React.useRef({});
     password.current = watch("password", "");
 
     const handleRegister = ( async (data: IUser) => {
         if (Object.keys(errors).length === 0 ) {
-            data.photo = newImage;
+            data.photo = image;
             }  else {
                 try {
                     const resposta = await axios.post(
@@ -52,6 +69,12 @@ const Register = () => {
         
         <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
             <Text style={styles.title}>ChocoAmigo Registrar</Text>
+
+            <Pressable style = {styles.button} onPress={pickImage}>
+                <Text style = {styles.buttonText}>Escolher foto</Text>
+            </Pressable>
+            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+
             <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
