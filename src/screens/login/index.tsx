@@ -5,20 +5,21 @@ import { StackTypes } from "../../routes/stack";
 import { Text, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useForm, Controller } from "react-hook-form";
+import { ILogin } from '../../types/types';
 
 const Login = () => {
     const navigation = useNavigation<StackTypes>();
-    const { control, handleSubmit, formState: { errors } } = useForm();
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+    const { control, handleSubmit, formState: { errors } } = useForm<ILogin>();
+    // const [email, setEmail] = useState<string>('');
+    // const [password, setPassword] = useState<string>('');
     const [usernameError, setUsernameError] = useState(false);
 
     const userService = new UserService();
 
-    const handleLogin = handleSubmit(async () => {
+    const handleLogin = handleSubmit(async (data: ILogin) => {
         //const userId = 1;
     //    if (Object.keys(errors).length === 0 ) {
-            if (!email || !password) {
+            if (!data.email || !data.password) {
                 setUsernameError(true);
             } else {
                 setUsernameError(false);
@@ -27,10 +28,10 @@ const Login = () => {
             
             
             
-            const isValid = await userService.validateUser(email, password);
+            const isValid = await userService.validateUser(data.email, data.password);
             if (isValid) {
-                setEmail('');
-                setPassword('');
+                // setEmail('');
+                // setPassword('');
                 navigation.navigate('Home');
             } else {
                 alert('Usuário e/ou senha inválidos');

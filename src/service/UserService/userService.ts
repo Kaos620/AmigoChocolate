@@ -1,14 +1,14 @@
 import axios, {AxiosResponse} from "axios";
-import { User } from "../../types/types";
+import { ILogin, IUser } from "../../types/types";
 
-const BASE_URL = 'https://localhost:3000/User';
+const BASE_URL = 'http://localhost:3000/User/';
 
  export class UserService {
     constructor() {
         //Se necessário, adcionar inicializações aqui
     }
 
-    async addUser ( user: User): Promise<boolean> {
+    async addUser ( user: IUser): Promise<boolean> {
         try{
             //const response = await axios.post(`${BASE_URL}`, user);
             const formData = new FormData();
@@ -36,11 +36,12 @@ const BASE_URL = 'https://localhost:3000/User';
 
     async validateUser (email: string, password: string): Promise<boolean> {
         try{
-            const response: AxiosResponse<User[]> = await axios.get(`${BASE_URL}?&email = ${email}&password = ${password}`);
-                if (response.data.length === 0) {
+            const response: AxiosResponse<IUser> = await axios.get(`${BASE_URL}?&email=${email}&password=${password}`);
+                console.log(response)
+                if (response.data) {
                     return false;
                 }
-                return response.status === 200;
+                return true;
 
         } catch (error) {
             console.error('Erro ao validar usuario', error);
