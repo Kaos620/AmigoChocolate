@@ -41,16 +41,17 @@ const pickImage = async () => {
     password.current = watch("password", "");
 
     const handleRegister = ( async (data: IUser) => {
-        if (Object.keys(errors).length === 0 ) {
+
+         
             data.photo = image;
-            }  else {
-                try {
+            console.log("FOTO", data.photo)
+            try {
                     const resposta = await axios.post(
                         'http://localhost:3000/User', {
-                            photo: data.photo,
                             fullName: data.fullName,
                             email: data.email,
-                            password: data.password                     
+                            password: data.password,                     
+                            photo: data.photo
                     });
         
                     if (resposta.status === 200) {
@@ -59,9 +60,8 @@ const pickImage = async () => {
                 } catch (err) {
                     console.log("Erro ao enviar os dados: ", err);
                 }
-        }
-    }
-);
+    
+    });
 
 
 
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     },
 
     error: {
-        color: 'red',
+        color: 'yellow',
         alignSelf: 'flex-start',
         marginLeft: '15%',
         marginBottom: 5,

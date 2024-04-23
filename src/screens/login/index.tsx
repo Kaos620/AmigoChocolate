@@ -10,15 +10,12 @@ import { ILogin } from '../../types/types';
 const Login = () => {
     const navigation = useNavigation<StackTypes>();
     const { control, handleSubmit, formState: { errors } } = useForm<ILogin>();
-    // const [email, setEmail] = useState<string>('');
-    // const [password, setPassword] = useState<string>('');
     const [usernameError, setUsernameError] = useState(false);
 
     const userService = new UserService();
 
     const handleLogin = handleSubmit(async (data: ILogin) => {
-        //const userId = 1;
-    //    if (Object.keys(errors).length === 0 ) {
+    //if (Object.keys(errors).length === 0 ) {
             if (!data.email || !data.password) {
                 setUsernameError(true);
             } else {
@@ -30,11 +27,9 @@ const Login = () => {
             
             const isValid = await userService.validateUser(data.email, data.password);
             if (isValid) {
-                // setEmail('');
-                // setPassword('');
                 navigation.navigate('Home');
             } else {
-                alert('Usuário e/ou senha inválidos');
+                //alert('Usuário e/ou senha inválidos');
             }
         //}
     });
