@@ -15,23 +15,28 @@ const Login = () => {
     const userService = new UserService();
 
     const handleLogin = handleSubmit(async (data: ILogin) => {
-    //if (Object.keys(errors).length === 0 ) {
+    if (Object.keys(errors).length === 0 ) {
             if (!data.email || !data.password) {
                 setUsernameError(true);
+                console.log("caiu no verdadeiro", setUsernameError)
+                
             } else {
                 setUsernameError(false);
-                navigation.navigate('Home');
+                console.log("caiu no falso", setUsernameError)
+               
             }
             
             
             
             const isValid = await userService.validateUser(data.email, data.password);
             if (isValid) {
+                console.log("Caiu no Is Valid IF", isValid)
                 navigation.navigate('Home');
             } else {
+                console.log("Caiu no Is Valid Else", isValid)
                 //alert('Usuário e/ou senha inválidos');
             }
-        //}
+        }
     });
 
     const handleGoRegister = (() => {
@@ -44,7 +49,7 @@ const Login = () => {
 
     return (
         <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
-            <Text style={styles.title}>ChocoAmigo Login</Text>
+            <Text style={styles.title}>ChocoAmigo</Text>
             <Controller
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (

@@ -1,9 +1,9 @@
 import { Text, View, Image, ImageBackground } from "react-native";
-import { Group } from "../../types/types";
+import { IGroup } from "../../types/types";
 import { useNavigation } from "@react-navigation/native"
 import { StackTypes } from "../../routes/stack";
 import {
-    Card,
+    Card, 
     CardTitles,
     StyledImage,
     StyledTouchableOpacity,
@@ -13,9 +13,8 @@ import {
 } from "./GroupCardStyles"
 
 
-export function GroupCard(data: Group) {
+const GroupCard = async (data: IGroup) => {
     const navigation = useNavigation<StackTypes>()
-
     return (
         <StyledView>
             <Card>
@@ -23,11 +22,15 @@ export function GroupCard(data: Group) {
                 <CardTitles>
                     <TextTitles>{data.groupName}</TextTitles>
                 </CardTitles>
-                <StyledTouchableOpacity
-                    onPress={() => { navigation.navigate('RegistrationGroup') }}
+                {/* <StyledTouchableOpacity
+                    onPress={() => { navigation.navigate("editGroup") }}
                 >
                     <TextStyled>Ver</TextStyled>
-                </StyledTouchableOpacity>
+                </StyledTouchableOpacity> */}
             </Card>
         </StyledView>
     )};
+
+export default GroupCard;
+
+

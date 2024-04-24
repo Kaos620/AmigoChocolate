@@ -1,7 +1,8 @@
 import axios, {AxiosResponse} from "axios";
-import { ILogin, IUser } from "../../types/types";
+import { ILogin, IUser, IGroup } from "../../types/types";
 
-const BASE_URL = 'http://localhost:3000/User/';
+const BASE_URL_USER = 'http://localhost:3000/User/';
+const BASE_URL_GROUP = 'http://localhost:3000/Grupo/';
 
  export class UserService {
     constructor() {
@@ -22,7 +23,7 @@ const BASE_URL = 'http://localhost:3000/User/';
         
             formData.append('photo', blob, 'photo.jpg');
         
-            const uploadResponse = await axios.post(BASE_URL+'addUser', formData, {
+            const uploadResponse = await axios.post(BASE_URL_USER+'addUser', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -36,16 +37,31 @@ const BASE_URL = 'http://localhost:3000/User/';
 
     async validateUser (email: string, password: string): Promise<boolean> {
         try{
-            const response: AxiosResponse<IUser> = await axios.get(`${BASE_URL}?&email=${email}&password=${password}`);
-                console.log(response)
-                if (response.data) {
-                    return false;
+            const response = await axios.get(`${BASE_URL_USER}?&email=${email}&password=${password}`);
+                console.log(response.data)
+                if (response.data.length !== 0) {
+                    return true;
                 }
-                return true;
+                return false;
 
         } catch (error) {
             console.error('Erro ao validar usuario', error);
             return false;
+        }
+    }
+
+    async getGroup(image: string, groupName: string ): Promise<IGroup[] | null> {
+        try {
+            const response: AxiosResponse<IGroup[]> = await axios.get(`${BASE_URL_GROUP}?&image=${image}&password=${groupName}`);
+            if (response.status >= 200 && response.status < 300) {
+                return response.data;
+            } else {
+                console.error("Erro ao buscar grupo. Status:", response.status);
+                return null;
+            }
+        } catch (error) {
+            console.error("Erro ao buscar grupo:", error);
+            return null; 
         }
     }
 }

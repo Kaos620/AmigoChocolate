@@ -10,7 +10,7 @@ export interface IUser {
 };
 
 export interface IGroup {
-    id: string,
+    id: number,
     image?: string,
     groupName: string,
 };

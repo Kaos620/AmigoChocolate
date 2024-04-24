@@ -20,32 +20,35 @@
       "email": "Gui3",
       "password": "123",
       "photo": "teste.png"
+    },
+    {
+      "id": "8dd4",
+      "fullName": "rafa",
+      "email": "rafa",
+      "password": "123",
+      "photo": ""
     }
   ],
   "Grupo": [
     {
       "id": "1",
       "nome": "Grupo 1",
-      "quantidade": "123",
-      "photo": "teste.png"
+      "image": ""
     },
     {
       "id": "2",
       "nome": "Grupo 2",
-      "quantidade": "123",
-      "photo": "teste.png"
+      "image": ""
     },
     {
       "id": "3",
       "nome": "Grupo 3",
-      "quantidade": "123",
-      "photo": "teste.png"
+      "image": ""
     },
     {
       "id": "4",
       "nome": "Grupo 4",
-      "quantidade": "123",
-      "photo": "teste.png"
+      "image": ""
     }
   ]
 }
