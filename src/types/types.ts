@@ -1,5 +1,3 @@
-import { ImageSourcePropType } from 'react-native';
-
 export interface IUser {
     id: number;
     fullName: string,
@@ -11,8 +9,8 @@ export interface IUser {
 
 export interface IGroup {
     id: number,
-    image?: string,
-    groupName: string,
+    image: string,
+    groupName: string;
 };
 
 export interface ILogin {

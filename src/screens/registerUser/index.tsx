@@ -41,26 +41,20 @@ const pickImage = async () => {
     password.current = watch("password", "");
 
     const handleRegister = ( async (data: IUser) => {
-
-         
-            data.photo = image;
-            console.log("FOTO", data.photo)
+        data.photo = image;
+        console.log("FOTO", data.photo)
             try {
-                    const resposta = await axios.post(
-                        'http://localhost:3000/User', {
-                            fullName: data.fullName,
-                            email: data.email,
-                            password: data.password,                     
-                            photo: data.photo
-                    });
-        
-                    if (resposta.status === 200) {
-                        navigation.navigate('Login');
-                    }
-                } catch (err) {
-                    console.log("Erro ao enviar os dados: ", err);
-                }
-    
+                const resposta = await axios.post(
+                'http://localhost:3000/User', {
+                fullName: data.fullName,
+                email: data.email,
+                password: data.password,                     
+                photo: data.photo
+                });
+            } catch (err) {
+                console.log("Erro ao enviar os dados: ", err);
+            }
+            navigation.navigate('Login');
     });
 
 
@@ -157,6 +151,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        resizeMode: "cover",
+        width: "100%",
+        height: "100%",
     },
 
     title: {

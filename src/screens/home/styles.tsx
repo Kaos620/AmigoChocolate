@@ -5,10 +5,12 @@ import { StyleSheet } from "react-native";
 
 export const stylesHome = StyleSheet.create({
     container: {
-        backgroundColor: 'black',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            resizeMode: "cover",
+            width: "100%",
+            height: "100%",
     },
 
     title: {

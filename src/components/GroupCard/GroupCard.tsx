@@ -13,14 +13,20 @@ import {
 } from "./GroupCardStyles"
 
 
-const GroupCard = async (data: IGroup) => {
-    const navigation = useNavigation<StackTypes>()
+type GroupType = {
+    id: number,
+    groupName: string,
+    image: string
+}
+
+export default function GroupCard(data: GroupType){
+    const navigation = () => useNavigation<StackTypes>()
     return (
         <StyledView>
             <Card>
                 <StyledImage source={{ uri: data.image || "" }} />
                 <CardTitles>
-                    <TextTitles>{data.groupName}</TextTitles>
+                    <TextTitles>{data.data.groupName}</TextTitles>
                 </CardTitles>
                 {/* <StyledTouchableOpacity
                     onPress={() => { navigation.navigate("editGroup") }}
@@ -29,8 +35,9 @@ const GroupCard = async (data: IGroup) => {
                 </StyledTouchableOpacity> */}
             </Card>
         </StyledView>
+        
     )};
+    
 
-export default GroupCard;
 
 

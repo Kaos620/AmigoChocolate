@@ -47,9 +47,7 @@ const handleRegisterGroup = ( async (data: IGroup) => {
                 image: data.image
             });
             
-            if (resposta.status === 200) {
-                navigation.navigate('Home');
-            }
+            navigation.navigate('Home');
         } catch (err) {
             console.log("Erro ao enviar os dados: ", err);
         }
@@ -97,6 +95,9 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        resizeMode: "cover",
+        width: "100%",
+        height: "100%",
     },
 
     title: {

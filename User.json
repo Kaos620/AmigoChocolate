@@ -27,27 +27,52 @@
       "email": "rafa",
       "password": "123",
       "photo": ""
+    },
+    {
+      "id": "9fb9",
+      "fullName": "Ezequiel",
+      "email": "eze",
+      "password": "123",
+      "photo": ""
+    },
+    {
+      "id": "0856",
+      "fullName": "ga",
+      "email": "ga",
+      "password": "123",
+      "photo": ""
+    },
+    {
+      "id": "0e4e",
+      "fullName": "Guit",
+      "email": "guit",
+      "password": "123",
+      "photo": ""
+    },
+    {
+      "id": "8f77",
+      "fullName": "a",
+      "email": "a",
+      "password": "123",
+      "photo": ""
+    },
+    {
+      "id": "613c",
+      "fullName": "1",
+      "email": "1",
+      "password": "1",
+      "photo": ""
     }
   ],
   "Grupo": [
     {
       "id": "1",
-      "nome": "Grupo 1",
+      "groupName": "Grupo 1",
       "image": ""
     },
     {
-      "id": "2",
-      "nome": "Grupo 2",
-      "image": ""
-    },
-    {
-      "id": "3",
-      "nome": "Grupo 3",
-      "image": ""
-    },
-    {
-      "id": "4",
-      "nome": "Grupo 4",
+      "id": "5728",
+      "groupName": "caac",
       "image": ""
     }
   ]

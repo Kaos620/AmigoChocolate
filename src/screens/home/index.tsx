@@ -7,26 +7,29 @@ import { stylesHome } from "./styles";
 import { StyledTouchableOpacity, Card, TextTitles, TextSubtitle, StyledImage, CardTitles, TextStyled } from "../../components/GroupCard/GroupCardStyles";
 import GroupCard  from "../../components/GroupCard/GroupCard";
 import { IGroup } from "../../types/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Home = () => {
     const navigation = useNavigation<StackTypes>();
-    const [groups, setGroups] = useState<IGroup>();
+    const [groups, setGroups] = useState<IGroup[]>([]);
     
     const userService = new UserService();
+    useEffect(() => {
+        groupCards()
+    }, [])
     
-    // const groupCards = async (data: IGroup) => {
-    //         try {
-    //             const groupsData: IGroup[] | null = await userService.getGroup(data.image, data.groupName); // Ajuste o método de busca de grupos conforme necessário
-    //         if (groupsData) {
-    //             setGroups(groupsData);
-    //         } else {
-    //             console.error("Erro ao buscar grupos.");
-    //         }
-    //     } catch (error) {
-    //         console.error("Erro ao buscar grupos:", error);
-    //     }
-    //     };
+    const groupCards = async () => {
+            try {
+                const groupsData: IGroup[] | null = await userService.getGroup(); // Ajuste o método de busca de grupos conforme necessário
+            if (groupsData) {
+                setGroups(groupsData);
+            } else {
+                console.error("Erro ao buscar grupos.");
+            }
+        } catch (error) {
+            console.error("Erro ao buscar grupos:", error);
+        }
+        };
 
 
     return(
@@ -40,11 +43,9 @@ const Home = () => {
                     <TextStyled >Cadastrar Grupo</TextStyled>
                 </TouchableOpacity>
 
-                {/*COLOCAR OS CARDS AQUI
-                 {groups.map(group => (
-                    <GroupCard key={group.id} group={group} />
-                ))}
-                */ }
+                {groups.map(group => (
+                   <GroupCard key={group.id} data={group} />
+               ))}
 
                 
             </ImageBackground>

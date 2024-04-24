@@ -50,9 +50,9 @@ const BASE_URL_GROUP = 'http://localhost:3000/Grupo/';
         }
     }
 
-    async getGroup(image: string, groupName: string ): Promise<IGroup[] | null> {
+    async getGroup(): Promise<IGroup[] | null> {
         try {
-            const response: AxiosResponse<IGroup[]> = await axios.get(`${BASE_URL_GROUP}?&image=${image}&password=${groupName}`);
+            const response: AxiosResponse<IGroup[]> = await axios.get(BASE_URL_GROUP);
             if (response.status >= 200 && response.status < 300) {
                 return response.data;
             } else {
