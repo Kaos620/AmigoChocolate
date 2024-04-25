@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { StackTypes } from "../../routes/stack";
 import axios, { AxiosResponse } from "axios";
 import { UserService } from '../../service/UserService/userService'
@@ -12,11 +12,13 @@ import { useEffect, useState } from "react";
 const Home = () => {
     const navigation = useNavigation<StackTypes>();
     const [groups, setGroups] = useState<IGroup[]>([]);
-    
+    const focus = useIsFocused();
+
+
     const userService = new UserService();
     useEffect(() => {
         groupCards()
-    }, [])
+    }, [focus])
     
     const groupCards = async () => {
             try {
@@ -39,14 +41,13 @@ const Home = () => {
                     <Text style={stylesHome.title}>Voltar</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => { navigation.navigate("RegistrationGroup") }}>
-                    <TextStyled >Cadastrar Grupo</TextStyled>
-                </TouchableOpacity>
-
                 {groups.map(group => (
                    <GroupCard key={group.id} data={group} />
                ))}
 
+                <TouchableOpacity style = {stylesHome.button}onPress={() => { navigation.navigate("RegistrationGroup") }}>
+                    <TextStyled >Cadastrar Grupo</TextStyled>
+                </TouchableOpacity>
                 
             </ImageBackground>
         </View>

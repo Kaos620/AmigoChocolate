@@ -1,10 +1,10 @@
 import styled from "styled-components/native";
 
 export const StyledView = styled.View`
-    flex: 1;
+    display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #FFFDD0; /* Creme */
+    padding: 6px;
 `
 
 export const CardsContainer = styled.View`
@@ -16,11 +16,13 @@ export const CardsContainer = styled.View`
 export const Card = styled.View`
     align-items: center;
     justify-content: center;
-    margin: 10px; /* Adicionando espaçamento entre os cards */
+    display: flex;
+    widht: 40px;
+    margin: 10px; 
     padding: 16px;
     background-color: #F5F5DC; /* Bege Claro */
     border-radius: 12px;
-    border: 2px solid #5C3317; /* Adicionando contorno ao redor do card */
+    border: 2px solid #5C3317;
 `
 
 export const CardTitles = styled.View`

@@ -62,6 +62,13 @@
       "email": "1",
       "password": "1",
       "photo": ""
+    },
+    {
+      "id": "6feb",
+      "fullName": "a",
+      "email": "a",
+      "password": "a",
+      "photo": ""
     }
   ],
   "Grupo": [
@@ -71,8 +78,13 @@
       "image": ""
     },
     {
-      "id": "5728",
-      "groupName": "caac",
+      "id": "40fe",
+      "groupName": "Grupo 2",
+      "image": ""
+    },
+    {
+      "id": "3ecd",
+      "groupName": "Grupo 3",
       "image": ""
     }
   ]

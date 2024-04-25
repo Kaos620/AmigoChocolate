@@ -24,7 +24,7 @@ export default function GroupCard(data: GroupType){
     return (
         <StyledView>
             <Card>
-                <StyledImage source={{ uri: data.image || "" }} />
+            <StyledImage source = { require('../../../assets/defaultImage.jpg')}/>
                 <CardTitles>
                     <TextTitles>{data.data.groupName}</TextTitles>
                 </CardTitles>
