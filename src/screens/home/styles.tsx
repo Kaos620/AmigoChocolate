@@ -37,8 +37,12 @@ export const stylesHome = StyleSheet.create({
         width: '40%',
         borderRadius: 5,
         height: 40,
-        backgroundColor: 'brown',
-        marginVertical: 10,
+        backgroundColor: '#5C3317',
+        borderColor: '#F5F5DC', /* Bege Claro */
+        borderWidth: 0.5,
+        marginVertical: 10
+
+        
     },
 
     buttonText: {

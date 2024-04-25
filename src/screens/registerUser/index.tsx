@@ -61,7 +61,7 @@ const pickImage = async () => {
 
     return (
         
-        <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
+        <ImageBackground source={require('../../../assets/chocoracao.png')} style={styles.container}>
             <Text style={styles.title}>ChocoAmigo Registrar</Text>
 
             <Pressable style = {styles.button} onPress={pickImage}>
@@ -177,11 +177,13 @@ const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: '40%',
+        width: '70%',
         borderRadius: 5,
+        borderColor: '#F5F5DC', /* Bege Claro */
         height: 40,
-        backgroundColor: 'brown',
+        backgroundColor: '#5C3317', /* Marrom Chocolate */
         marginVertical: 10,
+        borderWidth: 1,
     },
 
     buttonText: {

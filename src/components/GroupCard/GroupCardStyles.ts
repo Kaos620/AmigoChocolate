@@ -20,9 +20,9 @@ export const Card = styled.View`
     widht: 40px;
     margin: 10px; 
     padding: 16px;
-    background-color: #F5F5DC; /* Bege Claro */
+    background-color: #5C3317; /* Marrom Chocolate */
     border-radius: 12px;
-    border: 2px solid #5C3317;
+    border: 2px solid #F5F5DC; /* Bege Claro */
 `
 
 export const CardTitles = styled.View`
@@ -42,7 +42,7 @@ export const TextTitles = styled.Text`
     line-height: 28px;
     margin-bottom: 4px;
     font-weight: bold;
-    color: #5C3317; /* Marrom Chocolate */
+    color: #F5F5DC; /* Bege Claro */
 `
 
 export const TextSubtitle = styled.Text`

@@ -69,23 +69,23 @@
       "email": "a",
       "password": "a",
       "photo": ""
+    },
+    {
+      "id": "f5ff",
+      "fullName": "Katia",
+      "email": "Katia",
+      "password": "123",
+      "photo": ""
     }
   ],
   "Grupo": [
     {
-      "id": "1",
-      "groupName": "Grupo 1",
-      "image": ""
-    },
-    {
-      "id": "40fe",
-      "groupName": "Grupo 2",
-      "image": ""
-    },
-    {
-      "id": "3ecd",
-      "groupName": "Grupo 3",
-      "image": ""
+      "id": "d104",
+      "groupName": "Bat Familia",
+      "image": "",
+      "groupDescription": "Amigo Chocolate do Batman",
+      "chocolateValue": "1000",
+      "groupMembersNum": "8"
     }
   ]
 }

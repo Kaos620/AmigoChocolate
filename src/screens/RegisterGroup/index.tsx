@@ -15,6 +15,7 @@ const RegistrationGroup = () => {
         defaultValues: {
             image: '',
             groupName: '',
+
         }
 });
 
@@ -44,7 +45,10 @@ const handleRegisterGroup = ( async (data: IGroup) => {
         const resposta = await axios.post(
             'http://localhost:3000/Grupo', {
                 groupName: data.groupName,
-                image: data.image
+                image: data.image,
+                groupDescription: data.groupDescription,
+                chocolateValue: data.chocolateValue,
+                groupMembersNum: data.groupMembersNum,
             });
             
             navigation.navigate('Home');
@@ -56,7 +60,7 @@ const handleRegisterGroup = ( async (data: IGroup) => {
     
     return (
         
-        <ImageBackground source={require('../../../assets/background.jpg')} style={styles.container}>
+        <ImageBackground source={require('../../../assets/chocoracao.png')} style={styles.container}>
             <Text style={styles.title}>ChocoAmigo Registrar</Text>
 
             <Pressable style = {styles.button} onPress={pickImage}>
@@ -79,6 +83,56 @@ const handleRegisterGroup = ( async (data: IGroup) => {
                 rules={{ required: 'Nome do Grupo Obrigatório ', }}
             />
             {errors.groupName && <Text style={styles.error}>{errors.groupName.message}</Text>}
+
+            <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Descrição do Grupo"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                    />
+                )}
+                name="groupDescription"
+                rules={{ required: 'Descrição do Grupo Obrigatória', }}
+            />
+            {errors.groupDescription && <Text style={styles.error}>{errors.groupDescription.message}</Text>}
+
+            <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Digite o valor do Chocolate"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                        keyboardType='numeric'
+                    />
+                )}
+                name="chocolateValue"
+                rules={{ required: 'Valor do Chocolate Obrigatório ', }}
+            />
+            {errors.chocolateValue && <Text style={styles.error}>{errors.chocolateValue.message}</Text>}
+
+            <Controller
+                control={control}
+                render={({ field: { onChange, onBlur, value } }) => (
+                    <TextInput
+                        style={styles.textInput}
+                        placeholder="Quantidade de Membros"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                        keyboardType='numeric'
+                    />
+                )}
+                name="groupMembersNum"
+                rules={{ required: 'Quantidade de Membros Obrigatório ', }}
+            />
+            {errors.groupMembersNum && <Text style={styles.error}>{errors.groupMembersNum.message}</Text>}
 
             <TouchableOpacity onPress={handleSubmit(handleRegisterGroup)} style={styles.button}>
                 <Text style={styles.buttonText}>Registrar</Text>
@@ -121,11 +175,13 @@ const styles = StyleSheet.create({
     button: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: '40%',
+        width: '70%',
         borderRadius: 5,
+        borderColor: '#F5F5DC', /* Bege Claro */
         height: 40,
-        backgroundColor: 'brown',
+        backgroundColor: '#5C3317', /* Marrom Chocolate */
         marginVertical: 10,
+        borderWidth: 1,
     },
 
     buttonText: {

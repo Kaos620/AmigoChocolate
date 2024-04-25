@@ -16,7 +16,10 @@ import {
 type GroupType = {
     id: number,
     groupName: string,
-    image: string
+    image: string,
+    groupDescription: string,
+    chocolateValue: number,
+    groupMembersNum:number
 }
 
 export default function GroupCard(data: GroupType){
@@ -27,6 +30,7 @@ export default function GroupCard(data: GroupType){
             <StyledImage source = { require('../../../assets/defaultImage.jpg')}/>
                 <CardTitles>
                     <TextTitles>{data.data.groupName}</TextTitles>
+                    <TextTitles>R${data.data.chocolateValue}</TextTitles>
                 </CardTitles>
                 {/* <StyledTouchableOpacity
                     onPress={() => { navigation.navigate("editGroup") }}

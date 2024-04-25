@@ -11,6 +11,9 @@ export interface IGroup {
     id: number,
     image: string,
     groupName: string;
+    groupDescription: string;
+    chocolateValue: string;
+    groupMembersNum: string;
 };
 
 export interface ILogin {

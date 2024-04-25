@@ -36,7 +36,7 @@ const Home = () => {
 
     return(
         <View style={stylesHome.container}>
-            <ImageBackground source={require('../../../assets/background.jpg')} style={stylesHome.container}>
+            <ImageBackground source={require('../../../assets/chocoracao.png')} style={stylesHome.container}>
                 <TouchableOpacity onPress={() => { navigation.navigate("Login") }}>
                     <Text style={stylesHome.title}>Voltar</Text>
                 </TouchableOpacity>
