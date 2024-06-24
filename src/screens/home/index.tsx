@@ -14,15 +14,14 @@ const Home = () => {
     const [groups, setGroups] = useState<IGroup[]>([]);
     const focus = useIsFocused();
 
-
     const userService = new UserService();
     useEffect(() => {
-        groupCards()
-    }, [focus])
-    
+        groupCards();
+    }, [focus]);
+
     const groupCards = async () => {
         try {
-            const groupsData: IGroup[] | null = await userService.getGroup(); // Ajuste o método de busca de grupos conforme necessário
+            const groupsData: IGroup[] | null = await userService.getGroup();
             if (groupsData) {
                 setGroups(groupsData);
             } else {
@@ -33,8 +32,7 @@ const Home = () => {
         }
     };
 
-
-    return(
+    return (
         <View style={stylesHome.container}>
             <ImageBackground source={require('../../../assets/chocoracao.png')} style={stylesHome.container}>
                 <TouchableOpacity onPress={() => { navigation.navigate("Login") }}>
@@ -42,13 +40,12 @@ const Home = () => {
                 </TouchableOpacity>
 
                 {groups.map(group => (
-                   <GroupCard key={group.id} data={group} />
-               ))}
+                    <GroupCard key={group.id} data={group} onPress={() => navigation.navigate('CardView', { groupId: group.id })} />
+                ))}
 
-                <TouchableOpacity style = {stylesHome.button}onPress={() => { navigation.navigate("RegistrationGroup") }}>
-                    <TextStyled >Cadastrar Grupo</TextStyled>
+                <TouchableOpacity style={stylesHome.button} onPress={() => { navigation.navigate("RegistrationGroup") }}>
+                    <TextStyled>Cadastrar Grupo</TextStyled>
                 </TouchableOpacity>
-                
             </ImageBackground>
         </View>
     );

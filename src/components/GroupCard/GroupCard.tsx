@@ -1,7 +1,9 @@
 import { Text, View, Image, ImageBackground } from "react-native";
 import { IGroup } from "../../types/types";
-import { useNavigation } from "@react-navigation/native"
+import { useIsFocused, useNavigation } from "@react-navigation/native"
 import { StackTypes } from "../../routes/stack";
+import { UserService } from "../../service/UserService/userService";
+import { useEffect, useState } from "react";
 import {
     Card, 
     CardTitles,
@@ -14,37 +16,26 @@ import {
 
 
 type GroupType = {
-    id: number,
-    groupName: string,
-    image: string,
-    groupDescription: string,
-    chocolateValue: number,
-    groupMembersNum:number
-}
+    data: IGroup;
+    onPress: (id: number) => void;
+};
 
-
-export default function GroupCard(data: GroupType){
-    const navigation = useNavigation<StackTypes>();
+const GroupCard: React.FC<GroupType> = ({ data, onPress }) => {
     return (
         <StyledView>
             <Card>
-            <StyledImage source = { require('../../../assets/defaultImage.jpg')}/>
+                <StyledImage source={data.image ? { uri: data.image } : require('../../../assets/defaultImage.jpg')} />
                 <CardTitles>
-                    <TextTitles>{data.data.groupName}</TextTitles>
-                    <TextTitles>R${data.data.chocolateValue}</TextTitles>
+                    <TextTitles>{data.groupName}</TextTitles>
+                    <TextTitles>R${data.chocolateValue}</TextTitles>
                 </CardTitles>
-                <StyledTouchableOpacity
-                    onPress={() => {
-                        navigation.navigate('CardView');
-                    }}
-                >
+                <StyledTouchableOpacity onPress={() => onPress(data.id)}>
                     <TextStyled>Ver</TextStyled>
                 </StyledTouchableOpacity>
             </Card>
         </StyledView>
-        
-    )};
-    
+    );
+};
 
-
+export default GroupCard;
 

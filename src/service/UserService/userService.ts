@@ -2,7 +2,7 @@ import axios, {AxiosResponse} from "axios";
 import { ILogin, IUser, IGroup } from "../../types/types";
 
 const BASE_URL_USER = 'http://localhost:3000/User/';
-const BASE_URL_GROUP = 'http://localhost:3000/Grupo/';
+const BASE_URL_GROUP = 'http://localhost:3000/Grupo';
 
  export class UserService {
     constructor() {
@@ -64,4 +64,19 @@ const BASE_URL_GROUP = 'http://localhost:3000/Grupo/';
             return null; 
         }
     }
+
+    async getGroupByID(id_grupo: number): Promise<IGroup | null> {
+        try {
+          const response: AxiosResponse<IGroup> = await axios.get(`${BASE_URL_GROUP}/${id_grupo}`);
+          if (response.status >= 200 && response.status < 300) {
+            return response.data;
+          } else {
+            console.error("Erro ao buscar grupo. Status:", response.status);
+            return null;
+          }
+        } catch (error) {
+          console.error("Erro ao buscar grupo:", error);
+          return null;
+        }
+      }
 }

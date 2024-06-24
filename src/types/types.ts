@@ -1,6 +1,6 @@
 export interface IUser {
     id: number;
-    fullName: string,
+    fullName: string;
     email: string;
     password: string;
     passwordConfirmation?:string;
@@ -8,12 +8,13 @@ export interface IUser {
 };
 
 export interface IGroup {
-    id: number,
-    image: string,
+    id: number;
+    image: string;
     groupName: string;
     groupDescription: string;
     chocolateValue: string;
     groupMembersNum: string;
+    revealDate: number;
 };
 
 export interface ILogin {

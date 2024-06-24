@@ -80,12 +80,13 @@
   ],
   "Grupo": [
     {
-      "id": "d104",
+      "id": "1",
       "groupName": "Bat Familia",
       "image": "",
       "groupDescription": "Amigo Chocolate do Batman",
       "chocolateValue": "1000",
-      "groupMembersNum": "8"
+      "groupMembersNum": "8",
+      "revealDate": "241224"
     }
   ]
 }

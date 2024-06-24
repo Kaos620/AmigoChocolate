@@ -1,49 +1,75 @@
-import React, { useState } from 'react';
-import { useNavigation } from "@react-navigation/native";
-import { UserService } from '../../service/UserService/userService'
-import { StackTypes } from "../../routes/stack";
-import { Text, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { useForm, Controller } from "react-hook-form";
+import React, { useEffect, useState } from 'react';
+import { useRoute } from "@react-navigation/native";
+import { UserService } from '../../service/UserService/userService';
+import { IGroup } from "../../types/types";
+import { Text, ImageBackground, View } from "react-native";
 import {
     Card, 
     CardTitles,
     StyledImage,
-    StyledTouchableOpacity,
     StyledView,
-    TextStyled,
     TextTitles,
     ParticipantsNumber,
-    RevealDate
-} from "./cardViewStyles"
+    RevealDate,
+    ParticipantsContainer,
+    ParticipantName,
+    ParticipantsWrapper
+} from "./cardViewStyles";
+import { CardViewRouteProp } from '../../routes/stack';
 
-type CardType = {
-    id: number,
-    groupName: string,
-    image: string,
-    groupDescription: string,
-    chocolateValue: number,
-    groupMembersNum:number,
-    revealDate: string
-}
+const CardView: React.FC = () => {
+    const route = useRoute<CardViewRouteProp>();
+    const { groupId } = route.params;
+    const [groupData, setGroupData] = useState<IGroup | null>(null);
+    const userService = new UserService();
 
-const CardView = (data: CardType) => {
-    const navigation = () => useNavigation<StackTypes>()
+    useEffect(() => {
+        const fetchGroupData = async () => {
+            const data = await userService.getGroupByID(groupId);
+            if (data) {
+                setGroupData(data);
+            } else {
+                console.error("Erro ao buscar dados do grupo.");
+            }
+        };
+        fetchGroupData();
+    }, [groupId]);
+
+    if (!groupData) {
+        return <Text>Carregando...</Text>;
+    }
+
+    // Format the date
+    const revealDate = groupData.revealDate;
+    const formattedDate = `${revealDate}`;
+
+    // Dummy data for participants
+    const participants = ['User 1', 'User 2', 'User 3', 'User 4'];
+
     return (
         <StyledView>
-            <ImageBackground source={require('../../../assets/chocoracao.png')}>
-            <Card>
-                <StyledImage source = { require('../../../assets/defaultImage.jpg')}/>
-                <CardTitles>
-                    <TextTitles>{data.data.groupName}</TextTitles>
-                    <TextTitles>R${data.data.chocolateValue}</TextTitles>
-                </CardTitles>
-                <RevealDate>{data.data.revealDate}</RevealDate>
-                <ParticipantsNumber>{data.data.groupMembersNum} Participantes</ParticipantsNumber>
-            </Card>
+            <ImageBackground source={require('../../../assets/chocoracao.png')} style={{flex: 1, justifyContent: 'center'}}>
+                <Card>
+                    <StyledImage source={groupData.image ? { uri: groupData.image } : require('../../../assets/defaultImage.jpg')} />
+                    <CardTitles>
+                        <TextTitles>{groupData.groupName}</TextTitles>
+                        <TextTitles>R${groupData.chocolateValue}</TextTitles>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', paddingHorizontal: 20}}>
+                            <RevealDate>{formattedDate}</RevealDate>
+                            <ParticipantsNumber>{groupData.groupMembersNum} Participantes</ParticipantsNumber>
+                        </View>
+                    </CardTitles>
+                </Card>
             </ImageBackground>
+            <ParticipantsWrapper>
+                <ParticipantsContainer>
+                    {participants.map((participant, index) => (
+                        <ParticipantName key={index}>{participant}</ParticipantName>
+                    ))}
+                </ParticipantsContainer>
+            </ParticipantsWrapper>
         </StyledView>
-    )
+    );
 }
 
 export default CardView;
