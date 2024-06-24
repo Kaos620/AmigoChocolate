@@ -6,6 +6,7 @@ import Login from '../screens/login';
 import Register from '../screens/registerUser';
 import RecoverPassword from '../screens/recoverPassword';
 import RegistrationGroup from '../screens/RegisterGroup';
+import CardView from '../screens/cardView/cardView';
 
 const Stack = createNativeStackNavigator();
 type StackNavigation = {
@@ -14,6 +15,7 @@ type StackNavigation = {
     Register: undefined;
     RecoverPassword: undefined;
     RegistrationGroup: undefined;
+    CardView: undefined;
 }
 
 export type StackTypes = NativeStackNavigationProp<StackNavigation>
@@ -26,7 +28,8 @@ export default function StackComponent() {
                 <Stack.Screen name = "Register" component = {Register} options={{headerShown: false }}/>
                 <Stack.Screen name = "Home" component = {Home}  options={{headerShown: false }}/>
                 <Stack.Screen name = "RecoverPassword" component = {RecoverPassword} options={{headerShown: false }}/>
-                <Stack.Screen name = "RegistrationGroup" component ={RegistrationGroup} options={{headerShown: false }}/>           
+                <Stack.Screen name = "RegistrationGroup" component = {RegistrationGroup} options={{headerShown: false }}/>
+                <Stack.Screen name = "CardView" component = {CardView} options={{headerShown: false }}/>
             </Stack.Navigator>
         </NavigationContainer>
     )

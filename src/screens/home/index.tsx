@@ -21,8 +21,8 @@ const Home = () => {
     }, [focus])
     
     const groupCards = async () => {
-            try {
-                const groupsData: IGroup[] | null = await userService.getGroup(); // Ajuste o método de busca de grupos conforme necessário
+        try {
+            const groupsData: IGroup[] | null = await userService.getGroup(); // Ajuste o método de busca de grupos conforme necessário
             if (groupsData) {
                 setGroups(groupsData);
             } else {
@@ -31,7 +31,7 @@ const Home = () => {
         } catch (error) {
             console.error("Erro ao buscar grupos:", error);
         }
-        };
+    };
 
 
     return(

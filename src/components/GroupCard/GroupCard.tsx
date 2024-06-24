@@ -22,8 +22,9 @@ type GroupType = {
     groupMembersNum:number
 }
 
+
 export default function GroupCard(data: GroupType){
-    const navigation = () => useNavigation<StackTypes>()
+    const navigation = useNavigation<StackTypes>();
     return (
         <StyledView>
             <Card>
@@ -32,11 +33,13 @@ export default function GroupCard(data: GroupType){
                     <TextTitles>{data.data.groupName}</TextTitles>
                     <TextTitles>R${data.data.chocolateValue}</TextTitles>
                 </CardTitles>
-                {/* <StyledTouchableOpacity
-                    onPress={() => { navigation.navigate("editGroup") }}
+                <StyledTouchableOpacity
+                    onPress={() => {
+                        navigation.navigate('CardView');
+                    }}
                 >
                     <TextStyled>Ver</TextStyled>
-                </StyledTouchableOpacity> */}
+                </StyledTouchableOpacity>
             </Card>
         </StyledView>
         
