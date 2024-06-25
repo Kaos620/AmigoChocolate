@@ -86,7 +86,16 @@
       "groupDescription": "Amigo Chocolate do Batman",
       "chocolateValue": "1000",
       "groupMembersNum": "8",
-      "revealDate": "241224"
+      "revealDate": "24/12/2024"
+    },
+    {
+      "id": "6a0d",
+      "groupName": "teste",
+      "image": "",
+      "groupDescription": "teste",
+      "chocolateValue": "7800.30",
+      "groupMembersNum": "35",
+      "revealDate": "11/05/1933"
     }
   ]
 }

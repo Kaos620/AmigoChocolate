@@ -3,9 +3,9 @@ export interface IUser {
     fullName: string;
     email: string;
     password: string;
-    passwordConfirmation?:string;
+    passwordConfirmation?: string;
     photo?: string;
-};
+}
 
 export interface IGroup {
     id: number;
@@ -14,8 +14,13 @@ export interface IGroup {
     groupDescription: string;
     chocolateValue: string;
     groupMembersNum: string;
-    revealDate: number;
-};
+    revealDate: string;
+    sorteio?: ISorteio;
+}
+
+export interface ISorteio {
+    [key: string]: string;
+}
 
 export interface ILogin {
     email: string;

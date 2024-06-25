@@ -3,6 +3,12 @@ import styled from "styled-components/native";
 export const StyledView = styled.View`
     flex: 1;
     background-color: #F5F5DC; /* Bege Claro para o fundo */
+    flex: 1;
+    justifyContent: 'center';
+    alignItems: 'center';
+    resizeMode: "cover";
+    width: "100%";
+    height: "100%";
 `;
 
 export const CardsContainer = styled.View`
@@ -21,11 +27,14 @@ export const Card = styled.View`
     background-color: #5C3317; /* Marrom Chocolate */
     border-radius: 12px;
     border: 2px solid #F5F5DC; /* Bege Claro */
+    width: 90%; /* Ajuste a largura conforme necessário */
+    max-width: 500px; /* Defina um valor máximo para a largura */
 `;
 
 export const CardTitles = styled.View`
     align-items: center;
     margin-bottom: 20px;
+    width: 100%;
 `;
 
 export const TextStyled = styled.Text`
@@ -71,25 +80,32 @@ export const ParticipantsNumber = styled.Text`
     font-size: 16px;
     color: #F5F5DC; /* Bege Claro */
     flex: 1;
+    text-align: right;
 `;
 
 export const RevealDate = styled.Text`
     font-size: 16px;
     color: #F5F5DC; /* Bege Claro */
     flex: 1;
+    text-align: left;
 `;
 
 export const ParticipantsWrapper = styled.View`
-    flex: 1;
+    width: 100%;
     background-color: #F5F5DC; /* Bege Claro */
     padding: 20px;
     margin-top: 20px;
+    border-radius: 10px;
+    align-items: center;
+    justify-content: center;
 `;
 
 export const ParticipantsContainer = styled.View`
     background-color: #FFF8DC; /* Ligeiramente mais escuro que o fundo */
     padding: 10px;
     border-radius: 12px;
+    width: 100%;
+    max-width: 300px; /* Tamanho fixo para o contêiner */
 `;
 
 export const ParticipantName = styled.Text`

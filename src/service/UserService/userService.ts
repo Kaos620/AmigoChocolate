@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import { ILogin, IUser, IGroup } from "../../types/types";
+import { ILogin, IUser, IGroup, ISorteio } from "../../types/types";
 
 const BASE_URL_USER = 'http://localhost:3000/User/';
 const BASE_URL_GROUP = 'http://localhost:3000/Grupo';
@@ -79,4 +79,15 @@ const BASE_URL_GROUP = 'http://localhost:3000/Grupo';
           return null;
         }
       }
+
+      async saveSorteio(groupId: string, sorteio: ISorteio) {
+        try {
+            const response = await axios.post(`http://localhost:3000/Grupo/${groupId}/sorteio`, { sorteio });
+            return response.data;
+        } catch (error) {
+            console.error("Erro ao salvar o sorteio:", error);
+            throw error;
+        }
+    }
 }
+
