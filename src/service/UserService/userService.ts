@@ -82,7 +82,8 @@ const BASE_URL_GROUP = 'http://localhost:3000/Grupo';
 
       async saveSorteio(groupId: string, sorteio: ISorteio) {
         try {
-            const response = await axios.post(`http://localhost:3000/Grupo/${groupId}/sorteio`, { sorteio });
+            console.log(sorteio)
+            const response = await axios.put(`http://localhost:3000/Grupo/${groupId}/sorteio`, { sorteio: [sorteio] });
             return response.data;
         } catch (error) {
             console.error("Erro ao salvar o sorteio:", error);

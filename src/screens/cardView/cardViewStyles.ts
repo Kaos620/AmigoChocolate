@@ -4,9 +4,9 @@ export const StyledView = styled.View`
     flex: 1;
     background-color: #F5F5DC; /* Bege Claro para o fundo */
     flex: 1;
-    justifyContent: 'center';
-    alignItems: 'center';
-    resizeMode: "cover";
+    justify-content: 'center';
+    align-items: 'center';
+    resize: "cover";
     width: "100%";
     height: "100%";
 `;
