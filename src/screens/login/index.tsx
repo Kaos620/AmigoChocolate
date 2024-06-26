@@ -6,46 +6,44 @@ import { Text, View, StyleSheet, TouchableOpacity, TextInput, ImageBackground } 
 import { StatusBar } from "expo-status-bar";
 import { useForm, Controller } from "react-hook-form";
 import { ILogin } from '../../types/types';
+import { Ionicons } from '@expo/vector-icons';
 
 const Login = () => {
     const navigation = useNavigation<StackTypes>();
     const { control, handleSubmit, formState: { errors } } = useForm<ILogin>();
     const [usernameError, setUsernameError] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const userService = new UserService();
 
     const handleLogin = handleSubmit(async (data: ILogin) => {
-    if (Object.keys(errors).length === 0 ) {
+        if (Object.keys(errors).length === 0 ) {
             if (!data.email || !data.password) {
                 setUsernameError(true);
-                console.log("caiu no verdadeiro", setUsernameError)
-                
+                console.log("caiu no verdadeiro", setUsernameError);
             } else {
                 setUsernameError(false);
-                console.log("caiu no falso", setUsernameError)
-               
+                console.log("caiu no falso", setUsernameError);
             }
-            
-            
-            
+
             const isValid = await userService.validateUser(data.email, data.password);
             if (isValid) {
-                console.log("Caiu no Is Valid IF", isValid)
+                console.log("Caiu no Is Valid IF", isValid);
                 navigation.navigate('Home');
             } else {
-                console.log("Caiu no Is Valid Else", isValid)
+                console.log("Caiu no Is Valid Else", isValid);
                 //alert('Usuário e/ou senha inválidos');
             }
         }
     });
 
-    const handleGoRegister = (() => {
+    const handleGoRegister = () => {
         navigation.navigate('Register');
-    });
+    };
 
-    const handleGoRecover = (() => {
+    const handleGoRecover = () => {
         navigation.navigate('RecoverPassword');
-    });
+    };
 
     return (
         <ImageBackground source={require('../../../assets/chocoracao.png')} style={styles.container}>
@@ -62,26 +60,35 @@ const Login = () => {
                     />
                 )}
                 name="email"
-                rules={{ required: 'Email Obrigatório ', }}
+                rules={{ required: 'Email Obrigatório' }}
             />
             {errors.email && <Text style={styles.error}>{errors.email.message}</Text>}
 
-            <Controller
-                control={control}
-                render={({ field: { onChange, onBlur, value } }) => (
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="Senha"
-                        onBlur={onBlur}
-                        onChangeText={onChange}
-                        value={value}
-                        secureTextEntry
-                    />
-                )}
-                name="password"
-                rules={{ required: 'Senha Obrigatória ' }}
+            <View style={styles.passwordContainer}>
+                <Controller
+                    control={control}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                        <TextInput
+                            style={styles.textInputPassword}
+                            placeholder="Senha"
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value}
+                            secureTextEntry={!showPassword}
+                        />
+                    )}
+                    name="password"
+                    rules={{ required: 'Senha Obrigatória' }}
                 />
-                {errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
+                <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
+                    <Ionicons
+                        name={showPassword ? "eye-sharp" : "eye-off-sharp"}
+                        size={24}
+                        color="black"
+                    />
+                </TouchableOpacity>
+            </View>
+            {errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
             
             <TouchableOpacity onPress={handleLogin} style={styles.button}>
                 <Text style={styles.buttonText}>Entrar</Text>
@@ -110,7 +117,6 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
     },
-
     title: {
         fontSize: 30,
         marginBottom: 20,
@@ -119,9 +125,8 @@ const styles = StyleSheet.create({
         padding: 20,
         bottom: 80
     },
-
     textInput: {
-        width: '70%',
+        width: '80%',
         height: 40,
         padding: 10,
         borderWidth: 1,
@@ -130,11 +135,32 @@ const styles = StyleSheet.create({
         borderColor: '#5C3317', /* Marrom Chocolate */
         backgroundColor: 'rgba(255, 255, 255, 0.7)',
     },
-
+    textInputPassword: {
+        flex: 1,
+        height: '100%',
+        padding: 10,
+        borderWidth: 0,
+    },
+    passwordContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '80%',
+        textAlign: 'left',
+        height: 40,
+        borderWidth: 1,
+        borderRadius: 5,
+        borderColor: '#5C3317', /* Marrom Chocolate */
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+        marginVertical: 5,
+        paddingHorizontal: 10,
+    },
+    eyeIcon: {
+        marginLeft: -30,
+    },
     button: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: '70%',
+        width: '80%',
         borderRadius: 5,
         borderColor: '#F5F5DC', /* Bege Claro */
         height: 40,
@@ -142,13 +168,11 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         borderWidth: 1,
     },
-
     buttonText: {
         color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
     },
-
     link: {
         color: 'white',
         fontSize: 16,
@@ -156,12 +180,10 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline',
         marginVertical: 5,
     },
-
     error: {
         color: 'yellow',
         alignSelf: 'flex-start',
         marginLeft: '15%',
         marginBottom: 5,
     },
-
 });

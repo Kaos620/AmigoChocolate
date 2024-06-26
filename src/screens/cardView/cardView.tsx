@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { UserService } from '../../service/UserService/userService';
 import { IGroup, ISorteio } from "../../types/types";
 import { Text, View, ScrollView, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
     Card,
     CardTitles,
@@ -15,7 +16,7 @@ import {
     ParticipantName,
     ParticipantsWrapper
 } from "./cardViewStyles";
-import { CardViewRouteProp } from '../../routes/stack';
+import { CardViewRouteProp, StackTypes } from '../../routes/stack';
 
 const CardView: React.FC = () => {
     const route = useRoute<CardViewRouteProp>();
@@ -24,6 +25,7 @@ const CardView: React.FC = () => {
     const [sorteio, setSorteio] = useState<ISorteio | null>(null);
     const [isSorteioDone, setIsSorteioDone] = useState(false);
     const userService = new UserService();
+    const navigation = useNavigation<StackTypes>();
 
     useEffect(() => {
         const fetchGroupData = async () => {
@@ -75,6 +77,9 @@ const CardView: React.FC = () => {
     return (
         <StyledView>
             <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <MaterialCommunityIcons name="arrow-u-left-top" size={24} color="black" />
+            </TouchableOpacity>
                 <Card>
                     <StyledImage source={groupData.image ? { uri: groupData.image } : require('../../../assets/defaultImage.jpg')} />
                     <CardTitles>
